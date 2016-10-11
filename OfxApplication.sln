@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfxApplication", "OfxApplication\OfxApplication.csproj", "{AAED6F80-4110-4615-8E86-402533D55C34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfxApplication.Database", "OfxApplication.Database\OfxApplication.Database.csproj", "{180D8965-1B44-4873-B15C-E76F5C1713A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfxApplication.Library", "OfxApplication.Library\OfxApplication.Library.csproj", "{A4D20934-972C-4981-BAC8-317FB0EDE7A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAED6F80-4110-4615-8E86-402533D55C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAED6F80-4110-4615-8E86-402533D55C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAED6F80-4110-4615-8E86-402533D55C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAED6F80-4110-4615-8E86-402533D55C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{180D8965-1B44-4873-B15C-E76F5C1713A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{180D8965-1B44-4873-B15C-E76F5C1713A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{180D8965-1B44-4873-B15C-E76F5C1713A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{180D8965-1B44-4873-B15C-E76F5C1713A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4D20934-972C-4981-BAC8-317FB0EDE7A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4D20934-972C-4981-BAC8-317FB0EDE7A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4D20934-972C-4981-BAC8-317FB0EDE7A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4D20934-972C-4981-BAC8-317FB0EDE7A1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
