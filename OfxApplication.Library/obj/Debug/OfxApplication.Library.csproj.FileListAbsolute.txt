@@ -1,0 +1,5 @@
+c:\Users\Luiz Paulo\Documents\Visual Studio 2012\Projects\OfxApplication\OfxApplication.Library\bin\Debug\OfxApplication.Library.dll
+c:\Users\Luiz Paulo\Documents\Visual Studio 2012\Projects\OfxApplication\OfxApplication.Library\bin\Debug\OfxApplication.Library.pdb
+c:\Users\Luiz Paulo\Documents\Visual Studio 2012\Projects\OfxApplication\OfxApplication.Library\obj\Debug\OfxApplication.Library.csprojResolveAssemblyReference.cache
+c:\Users\Luiz Paulo\Documents\Visual Studio 2012\Projects\OfxApplication\OfxApplication.Library\obj\Debug\OfxApplication.Library.dll
+c:\Users\Luiz Paulo\Documents\Visual Studio 2012\Projects\OfxApplication\OfxApplication.Library\obj\Debug\OfxApplication.Library.pdb

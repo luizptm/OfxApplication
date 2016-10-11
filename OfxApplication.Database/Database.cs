@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace OfxApplication.Database
 {
-    class Database
+    public class Database
     {
-        private void SaveData(List<STMTTRN> result)
+        public void SaveData(List<STMTTRN> result)
         {
             foreach (STMTTRN item in result)
             {
@@ -32,8 +32,8 @@ namespace OfxApplication.Database
                 con.Close();
                 if (count <= 0)
                 {
-                    String sql = "INSERT INTO tbl (type, dtPostedm trnamt, fitid, memo) VALUES " +
-                        "(" + item.type + ", " + item.dtPosted + ", " + item.trnamt + ", " + item.fitid + ", " + item.memo + ")";
+                    String sql = "INSERT INTO tbl (id, type, dtPostedm, trnamt, fitid, memo) VALUES " +
+                        "(" + item.id + ", " + item.type + ", " + item.dtPosted + ", " + item.trnamt + ", " + item.fitid + ", " + item.memo + ")";
                     cmd = new SqlCommand(sql);
                     con.Open();
                     cmd.ExecuteNonQuery();

@@ -16,12 +16,16 @@ namespace OfxApplication.Controllers
         public ActionResult Index()
         {
             String filePath = Server.MapPath("extrato_itau");
+
             Lib lib = new Lib();
             String[] data = lib.ReadFile(filePath);
             List<STMTTRN> result = lib.LoadData(data);
-            //SaveData(result);
+
+            Database.Database db = new Database.Database();
+            db.SaveData(result);
+
             ViewBag.Result = lib.printData(result);
-                
+            ViewBag.Result = "";    
             return View();
         }
 
