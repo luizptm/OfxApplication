@@ -15,19 +15,36 @@ namespace OfxApplication.Controllers
     {
         public ActionResult Index()
         {
-            String filePath = Server.MapPath("extrato_itau");
-
-            Lib lib = new Lib();
-            String[] data = lib.ReadFile(filePath);
-            List<STMTTRN> result = lib.LoadData(data);
-
-            Database.Database db = new Database.Database();
-            db.SaveData(result);
-
-            ViewBag.Result = lib.printData(result);
-            ViewBag.Result = "";    
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Index(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                String filePath = Path.GetFileName(file.FileName);
+                var uploadPath = Server.MapPath("~/Content/Uploads");
+                filePath = Path.Combine(uploadPath, filePath);
+                file.SaveAs(filePath);
+                try
+                {
+                    Lib lib = new Lib();
+                    String[] data = lib.ReadFile(filePath);
+                    List<STMTTRN> result = lib.LoadData(data);
+
+                    Database.Database db = new Database.Database();
+                    db.SaveData(result);
+
+                    //ViewBag.Result = lib.printData(result);
+                    ViewBag.Result = "Arquivo 'file.FileName' salvo com sucesso.";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Result = "Erro inexperado." + ex.Message;
+                }
+            }
+            return View();
+        }
     }
 }

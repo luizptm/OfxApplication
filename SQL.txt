@@ -1,0 +1,8 @@
+CREATE TABLE [dbo].[tbl](
+	[id] [int] NULL,
+	[type] [nvarchar](max) NULL,
+	[dtPostedm] [nvarchar](max) NULL,
+	[trnamt] [nvarchar](max) NULL,
+	[fitid] [nvarchar](max) NULL,
+	[memo] [nvarchar](max) NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
