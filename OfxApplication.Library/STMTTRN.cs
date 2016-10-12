@@ -8,7 +8,7 @@ namespace OfxApplication.Library
 {
     public class STMTTRN
     {
-        public int id { get; set; }
+        public Guid id { get; set; }
         public string type { get; set; }
         public string dtPosted { get; set; }
         public string trnamt { get; set; }

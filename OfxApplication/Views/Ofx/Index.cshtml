@@ -1,23 +1,26 @@
-﻿@{
+﻿@using System;
+@using System.Collections.Generic;
+@model List<OfxApplication.Library.STMTTRN>
+@{
     ViewBag.Title = "Leitura dos arquivos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <script src="js/jquery.fileupload.js"></script>
-     <script type="text/javascript">
-         $(document).ready(function () {
-             $('#file').MultiFile({
-                 accept: 'ofx',
-                 max: 3,
-                 STRING: {
-                     remove: 'Remover',
-                     denied: 'Tipo do arquivo inválido $ext!',
-                     duplicate: 'Esse arquivo já foi selecionado:\n$file!'
-                 }
-             });
-         });
-  </script>
+<script src="js/jquery.fileupload.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#file').MultiFile({
+                accept: 'ofx',
+                max: 3,
+                STRING: {
+                    remove: 'Remover',
+                    denied: 'Tipo do arquivo inválido $ext!',
+                    duplicate: 'Esse arquivo já foi selecionado:\n$file!'
+                }
+            });
+        });
+</script>
 
-<h2>Leitura dos arquivos</h2>
+<h2>Gravação de arquivo OFX</h2>
 
 @using (Html.BeginForm("Index", "Ofx", FormMethod.Post, new { enctype = "multipart/form-data" } ))
 {
@@ -30,6 +33,27 @@
         <input type="submit" value="Salvar" />
     </fieldset>
 }
-Resultado: <br />
-
+<strong>Resultado:</strong> <br />
 @ViewBag.Result
+@if (Model != null)
+{
+    <table border="0" style="">
+        <tr>
+            <td>ID</td>
+            <td>Valor</td>
+            <td>Tipo</td>
+            <td>Fitid</td>
+            <td>Memo</td>
+        </tr>
+        @foreach (OfxApplication.Library.STMTTRN i in Model)
+        {
+            <tr>
+                <td>@i.id</td>
+                <td>@i.trnamt</td>
+                <td>@i.type</td>
+                <td>@i.fitid</td>
+                <td>@i.memo</td>
+            </tr>
+        }
+    </table>
+}

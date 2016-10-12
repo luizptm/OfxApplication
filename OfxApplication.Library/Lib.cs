@@ -35,6 +35,7 @@ namespace OfxApplication.Library
 
             XElement root = null;
             int id = 1;
+            Guid guid;
             string type = "";
             string dtPosted = "";
             string trnamt = "";
@@ -51,24 +52,24 @@ namespace OfxApplication.Library
                 }
                 if (root != null && !l.StartsWith("/"))
                 {
+                    guid = new Guid();
                     var tagName = getTagName(l);
                     if (tagName == "TRNTYPE") type = getTagValue(l);
                     if (tagName == "DTPOSTED") dtPosted = getTagValue(l);
                     if (tagName == "TRNAMT") trnamt = getTagValue(l);
                     if (tagName == "FITID") fitid = getTagValue(l);
                     if (tagName == "MEMO") memo = getTagValue(l);
-                    stmttrn.id = id;
+                    stmttrn.id = guid;
                     stmttrn.type = type;
                     stmttrn.dtPosted = dtPosted;
                     stmttrn.trnamt = trnamt;
                     stmttrn.fitid = fitid;
                     stmttrn.memo = memo;
-                    result.Add(stmttrn);
                 }
                 if (l.IndexOf("</STMTTRN>") > -1)
                 {
+                    result.Add(stmttrn);
                     root = null;
-                    continue;
                 }
             }
             return result;
@@ -76,16 +77,16 @@ namespace OfxApplication.Library
 
         private static string getTagName(string line)
         {
-            int pos_init = line.IndexOf("<") + 1;
-            int pos_end = line.IndexOf(">");
-            pos_end = pos_end - pos_init;
-            return line.Substring(pos_init, pos_end);
+            int tagOpen = line.IndexOf("<") + 1;
+            int tagClose = line.IndexOf(">");
+            tagClose = tagClose - tagOpen;
+            return line.Substring(tagOpen, tagClose);
         }
 
         private static string getTagValue(string line)
         {
-            int pos_init = line.IndexOf(">") + 1;
-            string retValue = line.Substring(pos_init).Trim();
+            int tagClose = line.IndexOf(">") + 1;
+            string retValue = line.Substring(tagClose).Trim();
             if (retValue.IndexOf("[") != -1)
             {
                 retValue = retValue.Substring(0, 8);

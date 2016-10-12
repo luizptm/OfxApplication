@@ -36,12 +36,12 @@ namespace OfxApplication.Controllers
                     Database.Database db = new Database.Database();
                     db.SaveData(result);
 
-                    //ViewBag.Result = lib.printData(result);
-                    ViewBag.Result = "Arquivo 'file.FileName' salvo com sucesso.";
+                    ViewBag.Result = "Arquivo '" + file.FileName + "' salvo com sucesso.";
+                    return View("Index", result);
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.Result = "Erro inexperado." + ex.Message;
+                    ViewBag.Result = "Erro inexperado. " + ex.Message;
                 }
             }
             return View();
