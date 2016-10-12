@@ -26,13 +26,17 @@ namespace OfxApplication.Controllers
                 String filePath = Path.GetFileName(file.FileName);
                 var uploadPath = Server.MapPath("~/Content/Uploads");
                 filePath = Path.Combine(uploadPath, filePath);
+                //Save file to read later
                 file.SaveAs(filePath);
                 try
                 {
                     Lib lib = new Lib();
+                    //reading file
                     String[] data = lib.ReadFile(filePath);
+                    //loading data
                     List<STMTTRN> result = lib.LoadData(data);
 
+                    //saving to database
                     Database.Database db = new Database.Database();
                     db.SaveData(result);
 
@@ -41,7 +45,7 @@ namespace OfxApplication.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.Result = "Erro inexperado. " + ex.Message;
+                    ViewBag.Result = "Erro inexperado. " + ex.Message;// +ex.StackTrace;
                 }
             }
             return View();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
@@ -12,12 +13,6 @@ namespace OfxApplication.Library
 {
     public class Lib
     {
-        public DirectoryInfo ReadDirectory(String dirPath)
-        {
-            DirectoryInfo di = new DirectoryInfo(dirPath);
-            return di;
-        }
-
         public String[] ReadFile(string filePath)
         {
             if (!System.IO.File.Exists(filePath))
@@ -34,47 +29,55 @@ namespace OfxApplication.Library
             STMTTRN stmttrn = null;
 
             XElement root = null;
-            int id = 1;
             Guid guid;
             string type = "";
             string dtPosted = "";
             string trnamt = "";
             string fitid = "";
             string memo = "";
-            foreach (string l in data)
+            foreach (string line in data)
             {
-                if (l.IndexOf("<STMTTRN>") > -1)
+                //verify if the data of an transaction started
+                if (line.IndexOf("<STMTTRN>") > -1)
                 {
                     root = new XElement("STMTTRN");
                     stmttrn = new STMTTRN();
-                    id++;
                     continue;
                 }
-                if (root != null && !l.StartsWith("/"))
+                //verify if the data not finished yet and not reached the end tag '/STMTTRN'
+                if (root != null && !line.StartsWith("/"))
                 {
-                    guid = new Guid();
-                    var tagName = getTagName(l);
-                    if (tagName == "TRNTYPE") type = getTagValue(l);
-                    if (tagName == "DTPOSTED") dtPosted = getTagValue(l);
-                    if (tagName == "TRNAMT") trnamt = getTagValue(l);
-                    if (tagName == "FITID") fitid = getTagValue(l);
-                    if (tagName == "MEMO") memo = getTagValue(l);
-                    stmttrn.id = guid;
+                    var tagName = getTagName(line);
+                    if (tagName == "TRNTYPE") type = getTagValue(line);
+                    if (tagName == "DTPOSTED") dtPosted = getTagValue(line);
+                    if (tagName == "TRNAMT") trnamt = getTagValue(line);
+                    if (tagName == "FITID") fitid = getTagValue(line);
+                    if (tagName == "MEMO") memo = getTagValue(line);
+
                     stmttrn.type = type;
                     stmttrn.dtPosted = dtPosted;
                     stmttrn.trnamt = trnamt;
                     stmttrn.fitid = fitid;
                     stmttrn.memo = memo;
                 }
-                if (l.IndexOf("</STMTTRN>") > -1)
+                //verify if the data of an transaction ended
+                if (line.IndexOf("</STMTTRN>") > -1)
                 {
-                    result.Add(stmttrn);
+                    //verify if the hash is already include on the list (
+                    string hash = stmttrn.GetHashCode();
+                    if (result.Find(x => x.GetHashCode() == hash) == null)
+                    {
+                        guid = Guid.NewGuid();
+                        stmttrn.id = guid;
+                        result.Add(stmttrn);
+                    }
                     root = null;
                 }
             }
             return result;
         }
 
+        //Get the name of the tag
         private static string getTagName(string line)
         {
             int tagOpen = line.IndexOf("<") + 1;
@@ -83,25 +86,16 @@ namespace OfxApplication.Library
             return line.Substring(tagOpen, tagClose);
         }
 
+        //Get the value from the end of the tag
         private static string getTagValue(string line)
         {
             int tagClose = line.IndexOf(">") + 1;
             string retValue = line.Substring(tagClose).Trim();
             if (retValue.IndexOf("[") != -1)
             {
-                retValue = retValue.Substring(0, 8);
+                retValue = retValue.Substring(0, 9);
             }
             return retValue;
-        }
-
-        public String printData(List<STMTTRN> result)
-        {
-            String output = "";
-            foreach (STMTTRN item in result)
-            {
-                output += item.id + item.type + item.dtPosted + item.trnamt + "<br/>";
-            }
-            return output;
         }
     }
 }
